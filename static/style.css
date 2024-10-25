@@ -14,3 +14,31 @@ p {
 h1, h2 {
     padding: 10px;
 }
+
+#text{
+ position: relative;
+}
+.text1{
+   position: absolute;
+   top: 5%;
+   left: 7%;
+ 
+}
+.text2{
+   position: absolute;
+   top: 25%;
+   left: 7%;
+}
+
+.text3{
+   position: absolute;
+   top: 33%;
+   left: 7%;
+ 
+}
+.text4{
+   position: absolute;
+   top: 41%;
+   left: 7%;
+ 
+}

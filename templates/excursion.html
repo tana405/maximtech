@@ -30,6 +30,16 @@
     <p>Проводим экскурсии в офисах Maxim Technology для разных целевых групп, показываем как и над чем работаем.</p>
     <p>Записаться на экскурсию в офис можно в городах: Курган, Набережные Челны и Казань.</p>
 
+    {% for message in messages %}
+    <div>
+    {{ message.text }}
+    {% for tag in message %}
+    <b>#{{ tag.text }}</b>
+    {% endfor %}
+    </div>
+{% endfor %}
+
+
 </main>
 
 <footer>
@@ -40,7 +50,7 @@
           <ul class="list-inline my-3">
             <li class="list-inline-item"><a href="https://www.youtube.com/@maximtechnology"><img src="{{ url_for('static', filename='y.png') }}" class="icon-style" alt="youtube icon"></a>
             <li class="list-inline-item"><a href="https://vk.com/oootechnology"><img src="{{ url_for('static', filename='vk.png') }}" class="icon-style" alt="vk icon"></a>
-            <li class="list-inline-item"><a href="https://maxim-technology.com/"><img src="{{ url_for('static', filename='telegram.png') }}" class="icon-style" alt="telegram icon"></a>
+            <li class="list-inline-item"><a href="https://t.me/ooo_technology"><img src="{{ url_for('static', filename='telegram.png') }}" class="icon-style" alt="telegram icon"></a>
             </ul>
     </div>
     </div>

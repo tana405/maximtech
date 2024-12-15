@@ -1,38 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-import json
-from app import db, app
-
-
-class City(db.Model):
-    Id = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(80), unique=True, nullable=False)
-    Address = db.Column(db.String(80), unique=True, nullable=False)
-
-    def __repr__(self):
-        pass
-
-
-class Excursion(db.Model):
-    Id = db.Column(db.Integer, primary_key=True)
-    FIO = db.Column(db.String(50), unique=True, nullable=False)
-    Address = db.Column(db.String(60), unique=True, nullable=False)
-    Phone = db.Column(db.String(15), unique=True, nullable=False)
-    Class = db.Column(db.Integer, nullable=False)
-    Count = db.Column(db.Integer, nullable=False)
-    Data = db.Column(db.DateTime, unique=True, nullable=False)
-
-    city_id = db.Column(db.Integer, db.ForeignKey('city.Id'), nullable=False)
-    city = db.relationship('City', backref=db.backref('CityId'))
-
-    def __repr__(self):
-        pass
+from flask import render_template, redirect, url_for, request, flash
+from flask_login import login_user, login_required, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+from app import app
+from class_db import *
 
 
 @app.route('/', methods=["GET"])
 def index():
     return render_template('index.html')
+
+
+@app.route('/logging', methods=["GET"])
+def logging():
+
+    return render_template('logging.html')
 
 
 @app.route('/contacts', methods=["GET"])
@@ -55,12 +36,39 @@ def student():
     return render_template('student.html')
 
 
+#авторизация
+@app.route('/login', methods=["GET", "POST"])
+def login_page():
+    return render_template('logging.html')
+
+
+@app.route('/logout', methods=["GET", "POST"])
+def logout():
+    # login = request.form.get('login')
+    # password = request.form.get('password')
+    #
+    # if login and password:
+    #     user = Users.query.filter_by(login=login).first()
+    #
+    #     if user and check_password_hash(user.password, password):
+    #         login_user(user)
+    #
+    #         next_page = request.args.get('next')
+    #
+    #         return redirect(next_page)
+    #     else:
+    #         flash('Login or password is not correct')
+    # else:
+    #     flash('Please fill login and password fields')
+    pass
+
+
+
 #@app.route('/api/city', method=["POST", "GET"])
 #def get_city():
     #cities = City.query.all()
 
 
-# '/add_excursion', method=["POST"]
 def add_excursion():
     id = request.form['Id']
     fio = request.form['FIO']
@@ -79,6 +87,6 @@ def add_excursion():
 with app.app_context():
     db.create_all()
 
+
 if __name__ == '__main__':
     app.run()
-
